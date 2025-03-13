@@ -1,20 +1,24 @@
-FROM node:18-alpine
+FROM node:22.12-alpine AS builder
 
-# Set working directory
 WORKDIR /app
 
-# Install dependencies
 COPY package*.json ./
-RUN npm install
+COPY tsconfig.json ./
+COPY src/ ./src/
 
-# Copy source code
-COPY . .
-
-# Build the application
+RUN --mount=type=cache,target=/root/.npm npm install
 RUN npm run build
 
-# The REPLICATE_API_TOKEN will be provided at runtime through smithery.yaml
-# We don't hardcode it in the Dockerfile for security reasons
+FROM node:22.12-alpine AS release
 
-# Set the entrypoint
-ENTRYPOINT ["node", "build/index.js"]
+WORKDIR /app
+
+COPY --from=builder /app/build /app/build
+COPY --from=builder /app/package.json ./
+COPY --from=builder /app/package-lock.json ./
+
+ENV NODE_ENV=production
+
+RUN npm ci --ignore-scripts --omit-dev
+
+CMD ["node", "build/index.js"]
