@@ -4,12 +4,11 @@
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![TypeScript](https://img.shields.io/badge/TypeScript-4.9+-blue)
 ![Model Context Protocol](https://img.shields.io/badge/MCP-Enabled-purple)
+[![smithery badge](https://smithery.ai/badge/@awkoy/replicate-flux-mcp)](https://smithery.ai/server/@awkoy/replicate-flux-mcp)
 
 A powerful Model Context Protocol (MCP) server that provides AI assistants with the ability to generate images using [Black Forest Labs' Flux Schnell model](https://replicate.com/black-forest-labs/flux-schnell) via Replicate's API.
 
 [Installation](#installation) • [Features](#features) • [Usage](#usage) • [Documentation](#documentation) • [Contributing](#contributing)
-
-![Replicate Flux MCP Server](https://replicate.com/static/flux-schnell.jpg)
 
 ---
 
@@ -33,7 +32,7 @@ npm install -g replicate-flux-mcp
 ### Direct Usage with NPX
 
 ```bash
-npx -y replicate-flux-mcp
+REPLICATE_API_TOKEN=your_token npx -y replicate-flux-mcp
 ```
 
 ### From Source
@@ -114,7 +113,7 @@ npx -y replicate-flux-mcp
 Provide your Replicate API token directly when running the server:
 
 ```bash
-REPLICATE_API_TOKEN=your_token npx -y replicate-flux-mcp
+REPLICATE_API_TOKEN=YOUR_TOKEN npx -y replicate-flux-mcp
 ```
 
 ### Cursor Integration
@@ -127,11 +126,8 @@ REPLICATE_API_TOKEN=your_token npx -y replicate-flux-mcp
 {
   "mcpServers": {
     "replicate-flux-mcp": {
-      "command": "npx",
-      "args": ["-y", "replicate-flux-mcp"],
-      "env": {
-        "REPLICATE_API_TOKEN": "your_replicate_api_token"
-      }
+      "command": "env REPLICATE_API_TOKEN=YOUR_TOKEN npx",
+      "args": ["-y", "replicate-flux-mcp"]
     }
   }
 }
@@ -148,7 +144,7 @@ REPLICATE_API_TOKEN=your_token npx -y replicate-flux-mcp
 4. Enter the following command in the appropriate field:
 
 ```
-env REPLICATE_API_TOKEN=your_replicate_api_token npx -y replicate-flux-mcp
+env REPLICATE_API_TOKEN=YOUR_TOKEN npx -y replicate-flux-mcp
 ```
 
 5. Replace `your_replicate_api_token` with your actual Replicate API token
@@ -165,12 +161,9 @@ env REPLICATE_API_TOKEN=your_replicate_api_token npx -y replicate-flux-mcp
 ```json
 {
   "mcpServers": {
-    "replicate-flux": {
-      "command": "npx",
-      "args": ["-y", "replicate-flux-mcp"],
-      "env": {
-        "REPLICATE_API_TOKEN": "your_replicate_api_token"
-      }
+    "replicate-flux-mcp": {
+      "command": "env REPLICATE_API_TOKEN=YOUR_TOKEN npx",
+      "args": ["-y", "replicate-flux-mcp"]
     }
   }
 }
@@ -260,6 +253,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - [Replicate API Documentation](https://replicate.com/docs)
 - [Flux Schnell Model](https://replicate.com/black-forest-labs/flux-schnell)
 - [MCP TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk)
+- [Smithery Documentation](https://smithery.ai/docs)
 
 ---
 
