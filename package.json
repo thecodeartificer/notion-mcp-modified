@@ -1,9 +1,9 @@
 {
   "name": "replicate-flux-mcp",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "bin": {
-    "replicate-flux-mcp": "./build/index.js"
+    "replicate-flux-mcp": "build/index.js"
   },
   "scripts": {
     "build": "tsc && shx chmod +x build/*.js",
@@ -11,6 +11,7 @@
     "watch": "tsc --watch",
     "inspector": "npx @modelcontextprotocol/inspector build/index.js"
   },
+  "homepage": "https://github.com/awkoy/replicate-flux-mcp",
   "keywords": [
     "replicate",
     "flux",
