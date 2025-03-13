@@ -8,10 +8,12 @@ startCommand:
         description: "Your Replicate API token"
         format: "password"  # This ensures the token is treated as sensitive
     required: ["replicateApiToken"]
-  commandFunction: |
-    function getCommand(config) {
-      return {
-        command: "REPLICATE_API_TOKEN=config.replicateApiToken node",
-        args: ["build/index.js"],
-      };
-    } 
+  commandFunction:
+    # A function that produces the CLI command to start the MCP on stdio.
+    |-
+    (config) => ({
+      "command": `REPLICATE_API_TOKEN=${config.replicateApiToken} node`,
+      "args": [
+        "build/index.js"
+      ],
+    })
