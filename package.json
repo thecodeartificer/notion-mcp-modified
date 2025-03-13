@@ -1,0 +1,40 @@
+{
+  "name": "replicate-flux-mcp",
+  "version": "0.0.1",
+  "type": "module",
+  "bin": {
+    "replicate-flux-mcp": "./build/index.js"
+  },
+  "scripts": {
+    "build": "tsc && shx chmod +x build/*.js",
+    "prepare": "npm run build",
+    "watch": "tsc --watch",
+    "inspector": "npx @modelcontextprotocol/inspector build/index.js"
+  },
+  "keywords": [
+    "replicate",
+    "flux",
+    "mcp",
+    "flux-schnell",
+    "flux-schnell-mcp",
+    "modelcontextprotocol",
+    "image-generation",
+    "ai"
+  ],
+  "author": "Yaroslav Boiko <y.boikodeveloper@gmail.com>",
+  "license": "MIT",
+  "description": "MCP for Replicate Flux Model",
+  "files": [
+    "build"
+  ],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.6.1",
+    "replicate": "^1.0.1",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.9",
+    "shx": "^0.3.4",
+    "typescript": "^5.8.2"
+  }
+}
