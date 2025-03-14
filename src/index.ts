@@ -25,7 +25,10 @@ const server = new McpServer({
 function getReplicateApiToken(): string {
   const token = process.env.REPLICATE_API_TOKEN;
   if (!token) {
-    throw new Error("REPLICATE_API_TOKEN environment variable is required");
+    console.error(
+      "Error: REPLICATE_API_TOKEN environment variable is required"
+    );
+    process.exit(1);
   }
   return token;
 }

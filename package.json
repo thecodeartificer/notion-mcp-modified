@@ -1,6 +1,6 @@
 {
   "name": "replicate-flux-mcp",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "type": "module",
   "bin": {
     "replicate-flux-mcp": "build/index.js"

@@ -94,28 +94,6 @@ Gets detailed information about a specific prediction.
 
 ## 🔧 Usage
 
-### CLI Usage
-
-Start the MCP server directly:
-
-```bash
-replicate-flux-mcp
-```
-
-Or via npx:
-
-```bash
-npx -y replicate-flux-mcp
-```
-
-### Environment Setup
-
-Provide your Replicate API token directly when running the server:
-
-```bash
-REPLICATE_API_TOKEN=YOUR_TOKEN npx -y replicate-flux-mcp
-```
-
 ### Cursor Integration
 
 #### Method 1: Using mcp.json
@@ -133,7 +111,7 @@ REPLICATE_API_TOKEN=YOUR_TOKEN npx -y replicate-flux-mcp
 }
 ```
 
-2. Replace `your_replicate_api_token` with your actual Replicate API token
+2. Replace `YOUR_TOKEN` with your actual Replicate API token
 3. Restart Cursor to apply the changes
 
 #### Method 2: Using Cursor MCP Settings
@@ -147,27 +125,41 @@ REPLICATE_API_TOKEN=YOUR_TOKEN npx -y replicate-flux-mcp
 env REPLICATE_API_TOKEN=YOUR_TOKEN npx -y replicate-flux-mcp
 ```
 
-5. Replace `your_replicate_api_token` with your actual Replicate API token
+5. Replace `YOUR_TOKEN` with your actual Replicate API token
 6. Save the settings and restart Cursor if necessary
 
 ### Claude Desktop Integration
-
-1. Locate your Claude Desktop configuration file:  
-   * macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`  
-   * Windows: `%APPDATA%/Claude/claude_desktop_config.json`  
-   * Linux: `~/.config/Claude/claude_desktop_config.json`
-2. Add the following configuration to your `mcpServers` object:
 
 ```json
 {
   "mcpServers": {
     "replicate-flux-mcp": {
-      "command": "env REPLICATE_API_TOKEN=YOUR_TOKEN npx",
-      "args": ["-y", "replicate-flux-mcp"]
+      "command": "npx",
+      "args": ["-y", "replicate-flux-mcp"],
+      "env": {
+        "REPLICATE_API_TOKEN": "YOUR TOKEN"
+      }
     }
   }
 }
 ```
+
+### Smithery Integration
+
+This MCP server is available as a hosted service on Smithery, allowing you to use it without setting up your own server.
+
+1. Visit [Smithery](https://smithery.ai/) and create an account if you don't have one
+2. Navigate to the [Replicate Flux MCP server page](https://smithery.ai/server/@awkoy/replicate-flux-mcp)
+3. Click "Add to Workspace" to add the server to your Smithery workspace
+4. Configure your MCP client (Cursor, Claude Desktop, etc.) to use your Smithery workspace URL
+
+Benefits of using the Smithery-hosted version:
+- No local setup required
+- Always running the latest version
+- Managed infrastructure and reliability
+- Easy integration with other Smithery MCP servers
+
+For more information on using Smithery with your MCP clients, visit the [Smithery documentation](https://smithery.ai/docs).
 
 ## 💻 Local Development
 
@@ -257,5 +249,5 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ---
 
-Made with ❤️ by [Your Name/Organization]
+Made with ❤️ by Yaroslav Boiko
 
