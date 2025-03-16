@@ -6,7 +6,13 @@
 ![Model Context Protocol](https://img.shields.io/badge/MCP-Enabled-purple)
 [![smithery badge](https://smithery.ai/badge/@awkoy/replicate-flux-mcp)](https://smithery.ai/server/@awkoy/replicate-flux-mcp)
 
-A powerful Model Context Protocol (MCP) server that provides AI assistants with the ability to generate images using [Black Forest Labs' Flux Schnell model](https://replicate.com/black-forest-labs/flux-schnell) via Replicate's API.
+<a href="https://glama.ai/mcp/servers/ss8n1knen8">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/ss8n1knen8/badge" />
+</a>
+
+A powerful Model Context Protocol (MCP) server that provides AI assistants with the ability to generate images using [Black Forest Labs' Flux Schnell model](https://replicate.com/black-forest-labs/flux-schnell) and SVG images using [Recraft's V3 SVG model](https://replicate.com/recraft-ai/recraft-v3-svg) via Replicate's API.
+
+If you have ideas on how to improve this MCP or feature requests, feel free to create a GitHub issue =)
 
 [Installation](#installation) • [Features](#features) • [Usage](#usage) • [Documentation](#documentation) • [Contributing](#contributing)
 
@@ -15,6 +21,7 @@ A powerful Model Context Protocol (MCP) server that provides AI assistants with 
 ## 🌟 Features
 
 - **🖼️ High-Quality Image Generation**: Access to Flux Schnell, a state-of-the-art image generation model
+- **🎨 SVG Image Generation**: Generate vector graphics using Recraft V3 SVG model
 - **🤖 Seamless AI Integration**: Enable AI assistants like Claude to generate images directly
 - **🎛️ Customizable Parameters**: Control aspect ratio, quality, inference steps, and more
 - **🔌 MCP Compatible**: Works with any MCP client (Cursor, Claude Desktop, Cline, Zed, etc.)
@@ -72,6 +79,19 @@ Generates an image based on a text prompt using the Flux Schnell model.
 }
 ```
 
+#### `generate_svg`
+
+Generates an SVG vector image based on a text prompt using the Recraft V3 SVG model.
+
+```typescript
+{
+  prompt: string;                // Required: Text description of the SVG to generate
+  size?: string;                 // Optional: Size of the generated SVG (default: "1024x1024")
+  style?: string;                // Optional: Style of the generated image (default: "any")
+                                // Options: "any", "engraving", "line_art", "line_circuit", "linocut"
+}
+```
+
 #### `prediction_list`
 
 Retrieves a list of your recent predictions from Replicate.
@@ -91,6 +111,20 @@ Gets detailed information about a specific prediction.
   predictionId: string;  // Required: ID of the prediction to retrieve
 }
 ```
+
+### Available Resources
+
+#### `imagelist`
+
+Browse your history of generated images created with the Flux Schnell model.
+
+#### `svglist`
+
+Browse your history of generated SVG images created with the Recraft V3 SVG model.
+
+#### `predictionlist`
+
+Browse all your Replicate predictions history.
 
 ## 🔧 Usage
 
@@ -197,13 +231,14 @@ npm run build
 
 ## ⚙️ Configuration
 
-The server can be configured by modifying the `CONFIG` object in `src/index.ts`:
+The server can be configured by modifying the `CONFIG` object in `src/config/index.ts`:
 
 ```javascript
 const CONFIG = {
   serverName: "replicate-flux-mcp",
-  serverVersion: "0.0.1",
-  modelId: "black-forest-labs/flux-schnell",
+  serverVersion: "0.0.6",
+  imageModelId: "black-forest-labs/flux-schnell",
+  svgModelId: "recraft-ai/recraft-v3-svg",
   pollingAttempts: 5,
   pollingInterval: 2000, // ms
 };
@@ -244,6 +279,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - [Model Context Protocol Documentation](https://modelcontextprotocol.io)
 - [Replicate API Documentation](https://replicate.com/docs)
 - [Flux Schnell Model](https://replicate.com/black-forest-labs/flux-schnell)
+- [Recraft V3 SVG Model](https://replicate.com/recraft-ai/recraft-v3-svg)
 - [MCP TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk)
 - [Smithery Documentation](https://smithery.ai/docs)
 

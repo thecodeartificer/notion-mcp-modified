@@ -9,7 +9,7 @@
     "build": "tsc && shx chmod +x build/*.js",
     "prepare": "npm run build",
     "watch": "tsc --watch",
-    "inspector": "npx @modelcontextprotocol/inspector build/index.js"
+    "inspector": "npx @modelcontextprotocol/inspector build/index.js -e REPLICATE_API_TOKEN=YOUR_REPLICATE_API_TOKEN"
   },
   "homepage": "https://github.com/awkoy/replicate-flux-mcp",
   "keywords": [
@@ -37,5 +37,8 @@
     "@types/node": "^22.13.9",
     "shx": "^0.3.4",
     "typescript": "^5.8.2"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }
