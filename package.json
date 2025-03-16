@@ -1,6 +1,6 @@
 {
   "name": "replicate-flux-mcp",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "type": "module",
   "bin": {
     "replicate-flux-mcp": "build/index.js"
@@ -40,9 +40,6 @@
   },
   "engines": {
     "node": ">=18"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
   },
   "repository": {
     "type": "git",

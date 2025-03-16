@@ -1,4 +1,4 @@
-import { getPredictionSchema } from "../types/index.js";
+import { getPredictionSchema, svgGenerationSchema } from "../types/index.js";
 import { predictionListSchema } from "../types/index.js";
 
 import { server } from "../server/index.js";
@@ -8,6 +8,7 @@ import { registerPredictionListTool } from "./predictionList.js";
 import { registerGenerateImageTool } from "./generateImage.js";
 import { createPredictionSchema } from "../types/index.js";
 import { registerCreatePredictionTool } from "./createPrediction.js";
+import { registerGenerateSvgTool } from "./generateSVG.js";
 
 export const registerAllTools = () => {
   server.tool(
@@ -33,5 +34,11 @@ export const registerAllTools = () => {
     "Get a list of recent predictions from Replicate",
     predictionListSchema,
     registerPredictionListTool
+  );
+  server.tool(
+    "generate_svg",
+    "Generate an SVG from a text prompt using Recraft model",
+    svgGenerationSchema,
+    registerGenerateSvgTool
   );
 };
