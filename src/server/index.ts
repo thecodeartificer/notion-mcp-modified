@@ -2,10 +2,22 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { CONFIG } from "../config/index.js";
 
-export const server = new McpServer({
-  name: CONFIG.serverName,
-  version: CONFIG.serverVersion,
-});
+export const server = new McpServer(
+  {
+    name: CONFIG.serverName,
+    version: CONFIG.serverVersion,
+  },
+  {
+    capabilities: {
+      resources: {},
+      tools: {},
+    },
+    instructions: `
+    MCP server for the Replicate models.
+    It is used to generate images and SVGs from text prompts.
+    `,
+  }
+);
 
 export async function startServer() {
   try {
