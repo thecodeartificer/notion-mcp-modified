@@ -10,23 +10,39 @@
   <img width="380" height="200" src="https://glama.ai/mcp/servers/ss8n1knen8/badge" />
 </a>
 
-A powerful Model Context Protocol (MCP) server that provides AI assistants with the ability to generate images using [Black Forest Labs' Flux Schnell model](https://replicate.com/black-forest-labs/flux-schnell) and SVG images using [Recraft's V3 SVG model](https://replicate.com/recraft-ai/recraft-v3-svg) via Replicate's API.
+**Replicate Flux MCP** is an advanced Model Context Protocol (MCP) server that empowers AI assistants to generate high-quality images and vector graphics. Leveraging [Black Forest Labs' Flux Schnell model](https://replicate.com/black-forest-labs/flux-schnell) for raster images and [Recraft's V3 SVG model](https://replicate.com/recraft-ai/recraft-v3-svg) for vector graphics via the Replicate API.
 
-If you have ideas on how to improve this MCP or feature requests, feel free to create a GitHub issue =)
+## 📑 Table of Contents
 
-[Installation](#installation) • [Features](#features) • [Usage](#usage) • [Documentation](#documentation) • [Contributing](#contributing)
-
----
+- [Features](#-features)
+- [Installation](#-installation)
+- [Getting Started](#-getting-started)
+- [Documentation](#-documentation)
+  - [Available Tools](#available-tools)
+  - [Available Resources](#available-resources)
+- [Integration](#-integration)
+  - [Cursor](#cursor-integration)
+  - [Claude Desktop](#claude-desktop-integration)
+  - [Smithery](#smithery-integration)
+- [Development](#-development)
+- [Technical Details](#-technical-details)
+- [Troubleshooting](#-troubleshooting)
+- [Contributing](#-contributing)
+- [License](#-license)
+- [Resources](#-resources)
 
 ## 🌟 Features
 
-- **🖼️ High-Quality Image Generation**: Access to Flux Schnell, a state-of-the-art image generation model
-- **🎨 SVG Image Generation**: Generate vector graphics using Recraft V3 SVG model
-- **🤖 Seamless AI Integration**: Enable AI assistants like Claude to generate images directly
-- **🎛️ Customizable Parameters**: Control aspect ratio, quality, inference steps, and more
-- **🔌 MCP Compatible**: Works with any MCP client (Cursor, Claude Desktop, Cline, Zed, etc.)
-- **🔒 Local Processing**: All requests are processed locally and securely
-- **🔍 Prediction Management**: View and retrieve your generation history
+- **🖼️ High-Quality Image Generation** - Create stunning images using Flux Schnell, a state-of-the-art AI model
+- **🎨 Vector Graphics Support** - Generate professional SVG vector graphics with Recraft V3 SVG model
+- **🤖 AI Assistant Integration** - Seamlessly enable AI assistants like Claude to generate visual content
+- **🎛️ Advanced Customization** - Fine-tune generation with controls for aspect ratio, quality, resolution, and more
+- **🔌 Universal MCP Compatibility** - Works with all MCP clients including Cursor, Claude Desktop, Cline, and Zed
+- **🔒 Secure Local Processing** - All requests are processed locally for enhanced privacy and security
+- **🔍 Comprehensive History Management** - Track, view, and retrieve your complete generation history
+- **📊 Batch Processing** - Generate multiple images from different prompts in a single request
+- **🔄 Variant Exploration** - Create and compare multiple interpretations of the same concept
+- **✏️ Prompt Engineering** - Fine-tune image variations with specialized prompt modifications
 
 ## 📦 Installation
 
@@ -56,6 +72,32 @@ npm install
 npm run build
 ```
 
+## 🚀 Getting Started
+
+1. **Obtain a Replicate API Token**
+   - Sign up at [Replicate](https://replicate.com/)
+   - Create an API token in your account settings
+
+2. **Install the MCP Server**
+   - Follow the installation instructions above
+
+3. **Configure Your MCP Client**
+   - Set up your preferred MCP client (Cursor, Claude Desktop, etc.)
+   - Add your Replicate API token to the configuration
+
+4. **Generate Your First Image**
+   - Use the `generate_image` tool with a descriptive prompt
+   - Example: `"A serene mountain landscape at sunset with reflections in a lake"`
+
+5. **Explore Advanced Features**
+   - Try different parameter settings for customized results
+   - Experiment with SVG generation using `generate_svg`
+   - Use batch image generation with `generate_multiple_images` for creating variations on a theme
+     - Example: `{ "prompts": ["A red sports car on a mountain road", "A blue sports car on a beach", "A vintage sports car in a city street"] }`
+   - Generate multiple design variants with `generate_image_variants` to explore different interpretations of the same prompt
+     - Using seeds: `{ "prompt": "A futuristic city skyline at night", "num_variants": 4, "seed": 42 }`
+     - Using prompt variations: `{ "prompt": "A character portrait", "prompt_variations": ["in anime style", "in watercolor style", "in oil painting style", "as a 3D render"] }`
+
 ## 📚 Documentation
 
 ### Available Tools
@@ -71,6 +113,45 @@ Generates an image based on a text prompt using the Flux Schnell model.
   go_fast?: boolean;             // Optional: Run faster predictions with optimized model (default: true)
   megapixels?: "1" | "0.25";     // Optional: Image resolution (default: "1")
   num_outputs?: number;          // Optional: Number of images to generate (1-4) (default: 1)
+  aspect_ratio?: string;         // Optional: Aspect ratio (e.g., "16:9", "4:3") (default: "1:1")
+  output_format?: string;        // Optional: Output format ("webp", "jpg", "png") (default: "webp")
+  output_quality?: number;       // Optional: Image quality (0-100) (default: 80)
+  num_inference_steps?: number;  // Optional: Number of denoising steps (1-4) (default: 4)
+  disable_safety_checker?: boolean; // Optional: Disable safety filter (default: false)
+}
+```
+
+#### `generate_multiple_images`
+
+Generates multiple images based on an array of prompts using the Flux Schnell model.
+
+```typescript
+{
+  prompts: string[];             // Required: Array of text descriptions for images to generate (1-10 prompts)
+  seed?: number;                 // Optional: Random seed for reproducible generation
+  go_fast?: boolean;             // Optional: Run faster predictions with optimized model (default: true)
+  megapixels?: "1" | "0.25";     // Optional: Image resolution (default: "1")
+  aspect_ratio?: string;         // Optional: Aspect ratio (e.g., "16:9", "4:3") (default: "1:1")
+  output_format?: string;        // Optional: Output format ("webp", "jpg", "png") (default: "webp")
+  output_quality?: number;       // Optional: Image quality (0-100) (default: 80)
+  num_inference_steps?: number;  // Optional: Number of denoising steps (1-4) (default: 4)
+  disable_safety_checker?: boolean; // Optional: Disable safety filter (default: false)
+}
+```
+
+#### `generate_image_variants`
+
+Generates multiple variants of the same image from a single prompt.
+
+```typescript
+{
+  prompt: string;                // Required: Text description for the image to generate variants of
+  num_variants: number;          // Required: Number of image variants to generate (2-10, default: 4)
+  prompt_variations?: string[];  // Optional: List of prompt modifiers to apply to variants (e.g., ["in watercolor style", "in oil painting style"])
+  variation_mode?: "append" | "replace"; // Optional: How to apply variations - 'append' adds to base prompt, 'replace' uses variations directly (default: "append")
+  seed?: number;                 // Optional: Base random seed. Each variant will use seed+variant_index
+  go_fast?: boolean;             // Optional: Run faster predictions with optimized model (default: true)
+  megapixels?: "1" | "0.25";     // Optional: Image resolution (default: "1")
   aspect_ratio?: string;         // Optional: Aspect ratio (e.g., "16:9", "4:3") (default: "1:1")
   output_format?: string;        // Optional: Output format ("webp", "jpg", "png") (default: "webp")
   output_quality?: number;       // Optional: Image quality (0-100) (default: 80)
@@ -126,7 +207,7 @@ Browse your history of generated SVG images created with the Recraft V3 SVG mode
 
 Browse all your Replicate predictions history.
 
-## 🔧 Usage
+## 🔧 Integration
 
 ### Cursor Integration
 
@@ -195,7 +276,7 @@ Benefits of using the Smithery-hosted version:
 
 For more information on using Smithery with your MCP clients, visit the [Smithery documentation](https://smithery.ai/docs).
 
-## 💻 Local Development
+## 💻 Development
 
 1. Clone the repository:
 
@@ -222,14 +303,16 @@ npm run dev
 npm run build
 ```
 
-## 🛠 Technical Stack
+## ⚙️ Technical Details
 
-* Model Context Protocol SDK - Core MCP functionality
-* Replicate API - Image generation service
-* TypeScript - Type safety and modern JavaScript features
-* Zod - Runtime type validation
+### Stack
 
-## ⚙️ Configuration
+- **Model Context Protocol SDK** - Core MCP functionality for tool and resource management
+- **Replicate API** - Provides access to state-of-the-art AI image generation models
+- **TypeScript** - Ensures type safety and leverages modern JavaScript features
+- **Zod** - Implements runtime type validation for robust API interactions
+
+### Configuration
 
 The server can be configured by modifying the `CONFIG` object in `src/config/index.ts`:
 
@@ -262,13 +345,15 @@ const CONFIG = {
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions are welcome! Please follow these steps to contribute:
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/amazing-feature`)
 3. Commit your changes (`git commit -m 'Add some amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
+
+For feature requests or bug reports, please create a GitHub issue. If you like this project, consider starring the repository!
 
 ## 📄 License
 
