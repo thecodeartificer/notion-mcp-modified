@@ -9,7 +9,8 @@
     "build": "tsc && shx chmod +x build/*.js",
     "prepare": "npm run build",
     "watch": "tsc --watch",
-    "inspector": "npx @modelcontextprotocol/inspector build/index.js -e NOTION_TOKEN=your_notion_token -e NOTION_PAGE_ID=your_notion_page_id"
+    "inspector": "npx @modelcontextprotocol/inspector build/index.js -e NOTION_TOKEN=your_notion_token -e NOTION_PAGE_ID=your_notion_page_id",
+    "dev": "tsc && node build/index.js"
   },
   "homepage": "https://github.com/awkoy/notion-mcp-server",
   "keywords": [
@@ -27,6 +28,7 @@
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.9.0",
     "@notionhq/client": "^2.3.0",
+    "dotenv": "^16.4.5",
     "zod": "^3.24.2"
   },
   "devDependencies": {
