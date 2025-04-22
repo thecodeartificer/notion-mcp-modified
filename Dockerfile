@@ -2,18 +2,18 @@ FROM node:22.12-alpine AS builder
 
 WORKDIR /app
 
-# Copy package files first to leverage Docker cache
+# Copy all package and config files first
 COPY package*.json ./
 COPY tsconfig.json ./
 
-# Install dependencies
-RUN --mount=type=cache,target=/root/.npm npm ci
-
-# Copy source code
+# Copy source code before installing to prevent TypeScript errors in prepare script
 COPY src/ ./src/
 
-# Build the application
-RUN npm run build
+# Install dependencies
+RUN npm install
+
+# Build the application (skip the prepare script which runs automatically with npm install)
+# RUN npm run build  # This is already run by prepare script in package.json
 
 FROM node:22.12-alpine AS release
 
